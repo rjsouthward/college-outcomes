@@ -1,0 +1,86 @@
+---
+title: "college-outcomes"
+author: "Ryan Southward"
+date: "6/14/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(skimr)
+```
+
+
+```{r, load_data}
+raw_data <- read_csv("mrc_table3.csv")
+
+college_and_parent_quintile <- raw_data %>%
+  drop_na() %>%
+  mutate(tier = as.factor(tier)) %>%
+  pivot_longer(
+              names_to = c(".value", "quintile"),
+              names_pattern = "([a-z0-9_]*)(parq.)",
+              cols = c(k_married_cond_parq1:k_married_cond_parq5, k_rank_cond_parq1:k_rank_cond_parq5, ktop1pc_cond_parq1:ktop1pc_cond_parq5) ) %>%
+  mutate(quintile = str_sub(quintile, 5, 5)) %>%
+  mutate(quintile = as.factor(quintile)) %>%
+  rename("prob_kid_top_one_pct" = ktop1pc_cond_) %>%
+  rename("mean_kid_income_ranking" = k_rank_cond_) %>%
+  rename("k_married_2014" = k_married_cond_) 
+
+mobility_data <- raw_data %>%
+  drop_na() %>%
+  mutate(tier = as.factor(tier)) %>%
+  pivot_longer(
+              names_to = "parent_and_kid_quintile",
+              values_to = "prob_based_on_k_par_quintile",
+              cols = kq1_cond_parq1:kq5_cond_parq5 ) %>%
+  mutate("kid_quintile" = str_sub(parent_and_kid_quintile, 3, 3)) %>%
+  mutate("quintile" = str_sub(parent_and_kid_quintile, 14, 14)) 
+
+combined_data <- inner_join(mobility_data, college_and_parent_quintile) %>%
+  select(-c(kq1_cond_parq1:kq5_cond_parq5)) %>%
+  select(-c(k_married_cond_parq1:k_married_cond_parq5)) %>%
+  select(-c(k_rank_cond_parq1:k_rank_cond_parq5)) %>%
+  select(-c(ktop1pc_cond_parq1:ktop1pc_cond_parq5)) %>%
+  select(-parent_and_kid_quintile)
+
+
+exclude_geo <- combined_data %>%
+  select(-c(tier_name, region:multi))
+```
+
+```{r}
+skim(college_and_parent_quintile)
+```
+
+
+```{r, married_data}
+married_data <- college_and_parent_quintile %>%
+  select(name, tier, k_married) %>%
+  drop_na() %>%
+  group_by(tier) %>%
+  summarise(avg_married = mean(k_married)) %>%
+  ggplot(aes(x = tier, y = avg_married)) +
+  geom_col()
+  
+```
+
+```{r}
+married_data2 <- college_and_parent_quintile %>%
+  select(name, tier, quintile, pct_married, par_toppt1pc) %>%
+  drop_na() %>%
+  ggplot(aes(x = pct_married)) +
+  geom_freqpoly() +
+  facet_wrap(~quintile)
+```
+
+```{r}
+married_data2
+```
+
+
+```{r}
+married_data
+```
+
