@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Ryan Southward" />
+
+
+<title>college-outcomes</title>
+
+<!--radix_placeholder_navigation_in_header-->
+<meta name="distill:offset" content=""/>
+
+<script type="application/javascript">
+
+  window.headroom_prevent_pin = false;
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+
+    // initialize headroom for banner
+    var header = $('header').get(0);
+    var headerHeight = header.offsetHeight;
+    var headroom = new Headroom(header, {
+      tolerance: 5,
+      onPin : function() {
+        if (window.headroom_prevent_pin) {
+          window.headroom_prevent_pin = false;
+          headroom.unpin();
+        }
+      }
+    });
+    headroom.init();
+    if(window.location.hash)
+      headroom.unpin();
+    $(header).addClass('headroom--transition');
+
+    // offset scroll location for banner on hash change
+    // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+    window.addEventListener("hashchange", function(event) {
+      window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+    });
+
+    // responsive menu
+    $('.distill-site-header').each(function(i, val) {
+      var topnav = $(this);
+      var toggle = topnav.find('.nav-toggle');
+      toggle.on('click', function() {
+        topnav.toggleClass('responsive');
+      });
+    });
+
+    // nav dropdowns
+    $('.nav-dropbtn').click(function(e) {
+      $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+      $(this).parent().siblings('.nav-dropdown')
+         .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $("body").click(function(e){
+      $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $(".nav-dropdown").click(function(e){
+      e.stopPropagation();
+    });
+  });
+</script>
+
+<style type="text/css">
+
+/* Theme (user-documented overrideables for nav appearance) */
+
+.distill-site-nav {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #0F2E3D;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.distill-site-nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.distill-site-nav a:hover {
+  color: white;
+}
+
+@media print {
+  .distill-site-nav {
+    display: none;
+  }
+}
+
+.distill-site-header {
+
+}
+
+.distill-site-footer {
+
+}
+
+
+/* Site Header */
+
+.distill-site-header {
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.distill-site-header .nav-left {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header .nav-left {
+    margin-left: 0;
+  }
+}
+
+
+.distill-site-header .nav-right {
+  float: right;
+  margin-right: 8px;
+}
+
+.distill-site-header a,
+.distill-site-header .title {
+  display: inline-block;
+  text-align: center;
+  padding: 14px 10px 14px 10px;
+}
+
+.distill-site-header .title {
+  font-size: 18px;
+  min-width: 150px;
+}
+
+.distill-site-header .logo {
+  padding: 0;
+}
+
+.distill-site-header .logo img {
+  display: none;
+  max-height: 20px;
+  width: auto;
+  margin-bottom: -4px;
+}
+
+.distill-site-header .nav-image img {
+  max-height: 18px;
+  width: auto;
+  display: inline-block;
+  margin-bottom: -3px;
+}
+
+
+
+@media screen and (min-width: 1000px) {
+  .distill-site-header .logo img {
+    display: inline-block;
+  }
+  .distill-site-header .nav-left {
+    margin-left: 20px;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 20px;
+  }
+  .distill-site-header .title {
+    padding-left: 12px;
+  }
+}
+
+
+.distill-site-header .nav-toggle {
+  display: none;
+}
+
+.nav-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.nav-dropdown .nav-dropbtn {
+  border: none;
+  outline: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 16px 10px;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+  margin-top: 1px;
+  z-index: 2;
+}
+
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  z-index: 1;
+  margin-top: 2px;
+  white-space: nowrap;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.nav-dropdown-content hr {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-dropdown-active {
+  display: block;
+}
+
+.nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+  color: black;
+  padding: 6px 24px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.nav-dropdown-content .nav-dropdown-header {
+  display: block;
+  padding: 5px 24px;
+  padding-bottom: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #999999;
+  white-space: nowrap;
+}
+
+.nav-dropdown:hover .nav-dropbtn {
+  color: white;
+}
+
+.nav-dropdown-content a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.nav-right .nav-dropdown-content {
+  margin-left: -45%;
+  right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+  .distill-site-header a.nav-toggle {
+    float: right;
+    display: block;
+  }
+  .distill-site-header .title {
+    margin-left: 0;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 0;
+  }
+  .distill-site-header {
+    overflow: hidden;
+  }
+  .nav-right .nav-dropdown-content {
+    margin-left: 0;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-header.responsive {position: relative; min-height: 500px; }
+  .distill-site-header.responsive a.nav-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .distill-site-header.responsive a,
+  .distill-site-header.responsive .nav-dropdown {
+    display: block;
+    text-align: left;
+  }
+  .distill-site-header.responsive .nav-left,
+  .distill-site-header.responsive .nav-right {
+    width: 100%;
+  }
+  .distill-site-header.responsive .nav-dropdown {float: none;}
+  .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+  .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* Site Footer */
+
+.distill-site-footer {
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 3;
+  margin-top: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+/* Headroom */
+
+d-title {
+  padding-top: 6rem;
+}
+
+@media print {
+  d-title {
+    padding-top: 4rem;
+  }
+}
+
+.headroom {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.headroom--transition {
+  transition: all .4s ease-in-out;
+}
+
+.headroom--unpinned {
+  top: -100px;
+}
+
+.headroom--pinned {
+  top: 0;
+}
+
+/* adjust viewport for navbar height */
+/* helps vertically center bootstrap (non-distill) content */
+.min-vh-100 {
+  min-height: calc(100vh - 100px) !important;
+}
+
+</style>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+<script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
+<script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
+<script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
+
+<script type="application/javascript">
+
+function getMeta(metaName) {
+  var metas = document.getElementsByTagName('meta');
+  for (let i = 0; i < metas.length; i++) {
+    if (metas[i].getAttribute('name') === metaName) {
+      return metas[i].getAttribute('content');
+    }
+  }
+  return '';
+}
+
+function offsetURL(url) {
+  var offset = getMeta('distill:offset');
+  return offset ? offset + '/' + url : url;
+}
+
+function createFuseIndex() {
+
+  // create fuse index
+  var options = {
+    keys: [
+      { name: 'title', weight: 20 },
+      { name: 'categories', weight: 15 },
+      { name: 'description', weight: 10 },
+      { name: 'contents', weight: 5 },
+    ],
+    ignoreLocation: true,
+    threshold: 0
+  };
+  var fuse = new window.Fuse([], options);
+
+  // fetch the main search.json
+  return fetch(offsetURL('search.json'))
+    .then(function(response) {
+      if (response.status == 200) {
+        return response.json().then(function(json) {
+          // index main articles
+          json.articles.forEach(function(article) {
+            fuse.add(article);
+          });
+          // download collections and index their articles
+          return Promise.all(json.collections.map(function(collection) {
+            return fetch(offsetURL(collection)).then(function(response) {
+              if (response.status === 200) {
+                return response.json().then(function(articles) {
+                  articles.forEach(function(article) {
+                    fuse.add(article);
+                  });
+                })
+              } else {
+                return Promise.reject(
+                  new Error('Unexpected status from search index request: ' +
+                            response.status)
+                );
+              }
+            });
+          })).then(function() {
+            return fuse;
+          });
+        });
+
+      } else {
+        return Promise.reject(
+          new Error('Unexpected status from search index request: ' +
+                      response.status)
+        );
+      }
+    });
+}
+
+window.document.addEventListener("DOMContentLoaded", function (event) {
+
+  // get search element (bail if we don't have one)
+  var searchEl = window.document.getElementById('distill-search');
+  if (!searchEl)
+    return;
+
+  createFuseIndex()
+    .then(function(fuse) {
+
+      // make search box visible
+      searchEl.classList.remove('hidden');
+
+      // initialize autocomplete
+      var options = {
+        autoselect: true,
+        hint: false,
+        minLength: 2,
+      };
+      window.autocomplete(searchEl, options, [{
+        source: function(query, callback) {
+          const searchOptions = {
+            isCaseSensitive: false,
+            shouldSort: true,
+            minMatchCharLength: 2,
+            limit: 10,
+          };
+          var results = fuse.search(query, searchOptions);
+          callback(results
+            .map(function(result) { return result.item; })
+          );
+        },
+        templates: {
+          suggestion: function(suggestion) {
+            var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+              ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+              : '';
+            var html = `
+              <div class="search-item">
+                <h3>${suggestion.title}</h3>
+                <div class="search-item-description">
+                  ${suggestion.description || ''}
+                </div>
+                <div class="search-item-preview">
+                  ${img}
+                </div>
+              </div>
+            `;
+            return html;
+          }
+        }
+      }]).on('autocomplete:selected', function(event, suggestion) {
+        window.location.href = offsetURL(suggestion.path);
+      });
+      // remove inline display style on autocompleter (we want to
+      // manage responsive display via css)
+      $('.algolia-autocomplete').css("display", "");
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+
+});
+
+</script>
+
+<style type="text/css">
+
+.nav-search {
+  font-size: x-small;
+}
+
+/* Algolioa Autocomplete */
+
+.algolia-autocomplete {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: sub;
+  background-color: white;
+  color: black;
+  padding: 6px;
+  padding-top: 8px;
+  padding-bottom: 0;
+  border-radius: 6px;
+  border: 1px #0F2E3D solid;
+  width: 180px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-nav .algolia-autocomplete {
+    display: none;
+    visibility: hidden;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete {
+    display: inline-block;
+    visibility: visible;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
+    margin-left: 0;
+    width: 400px;
+    max-height: 400px;
+  }
+}
+
+.algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+  width: 90%;
+  outline: none;
+  border: none;
+}
+
+.algolia-autocomplete .aa-hint {
+  color: #999;
+}
+.algolia-autocomplete .aa-dropdown-menu {
+  width: 550px;
+  max-height: 70vh;
+  overflow-x: visible;
+  overflow-y: scroll;
+  padding: 5px;
+  margin-top: 3px;
+  margin-left: -150px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #999;
+  border-top: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+  cursor: pointer;
+  padding: 5px 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
+  border-bottom: none;
+  margin-bottom: 2px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
+  overflow: hidden;
+  font-size: 0.8em;
+  line-height: 1.4em;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+  font-size: 1rem;
+  margin-block-start: 0;
+  margin-block-end: 5px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
+  display: inline-block;
+  overflow: hidden;
+  height: 2.8em;
+  width: 80%;
+  margin-right: 4%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
+  display: inline-block;
+  width: 15%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
+  height: 3em;
+  width: auto;
+  display: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
+  display: initial;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+  background-color: #eee;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+</style>
+
+
+<!--/radix_placeholder_navigation_in_header-->
+<!--radix_placeholder_site_in_header-->
+<!--/radix_placeholder_site_in_header-->
+
+<style type="text/css">
+body {
+  padding-top: 60px;
+}
+</style>
+<script src="/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rmarkdown/rmd/h/pandoc/header-attrs.js"></script>
+<script src="/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rmarkdown/rmd/h/jquery/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rmarkdown/rmd/h/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rmarkdown/rmd/h/bootstrap/js/bootstrap.min.js"></script>
+<script src="/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rmarkdown/rmd/h/bootstrap/shim/html5shiv.min.js"></script>
+<script src="/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rmarkdown/rmd/h/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rmarkdown/rmd/h/navigation-1.1/tabsets.js"></script>
+<link href="/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rmarkdown/rmd/h/highlightjs/default.css" rel="stylesheet" />
+<script src="/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rmarkdown/rmd/h/highlightjs/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a href="index.html" class="title">College Outcomes Final Project</a>
+</div>
+<div class="nav-right">
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="college-outcomes.html">Stanford</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="college-outcomes.html">Stanford</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">college-outcomes</h1>
+<h4 class="author">Ryan Southward</h4>
+<h4 class="date">6/14/2021</h4>
+
+</div>
+
+
+<pre class="r"><code>raw_data &lt;- read_csv(&quot;mrc_table3.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   name = col_character(),
+##   tier_name = col_character(),
+##   state = col_character(),
+##   czname = col_character(),
+##   county = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>college_and_parent_quintile &lt;- raw_data %&gt;%
+  drop_na() %&gt;%
+  pivot_longer(
+              names_to = c(&quot;.value&quot;, &quot;quintile&quot;),
+              names_pattern = &quot;([a-z0-9_]*)(parq.)&quot;,
+              cols = c(k_married_cond_parq1:k_married_cond_parq5, k_rank_cond_parq1:k_rank_cond_parq5, ktop1pc_cond_parq1:ktop1pc_cond_parq5) ) %&gt;%
+  mutate(quintile = str_sub(quintile, 5, 5)) %&gt;%
+  rename(&quot;prob_kid_top_one_pct&quot; = ktop1pc_cond_) %&gt;%
+  rename(&quot;mean_kid_income_ranking&quot; = k_rank_cond_) %&gt;%
+  rename(&quot;k_married_2014&quot; = k_married_cond_) 
+
+mobility_data &lt;- raw_data %&gt;%
+  drop_na() %&gt;%
+  pivot_longer(
+              names_to = &quot;parent_and_kid_quintile&quot;,
+              values_to = &quot;prob_based_on_k_par_quintile&quot;,
+              cols = kq1_cond_parq1:kq5_cond_parq5 ) %&gt;%
+  mutate(&quot;kid_quintile&quot; = str_sub(parent_and_kid_quintile, 3, 3)) %&gt;%
+  mutate(&quot;quintile&quot; = str_sub(parent_and_kid_quintile, 14, 14)) 
+
+long_p_quintiles &lt;- raw_data %&gt;%
+  drop_na() %&gt;%
+  pivot_longer(
+              names_to = &quot;quintile&quot;,
+              values_to = &quot;par_quint_distribution&quot;,
+              cols = par_q1:par_q5 ) %&gt;%
+  mutate(quintile = str_sub(quintile, 6, 6)) 
+
+long_k_quintiles &lt;- raw_data %&gt;%
+  drop_na() %&gt;%
+  pivot_longer(
+              names_to = &quot;kid_quintile&quot;,
+              values_to = &quot;kid_quint_distribution&quot;,
+              cols = k_q1:k_q5 ) %&gt;%
+  mutate(kid_quintile = str_sub(kid_quintile, 4, 4)) 
+
+long_p_and_q_quints &lt;- inner_join(long_p_quintiles, long_k_quintiles)</code></pre>
+<pre><code>## Joining, by = c(&quot;super_opeid&quot;, &quot;cohort&quot;, &quot;name&quot;, &quot;type&quot;, &quot;tier&quot;, &quot;tier_name&quot;, &quot;iclevel&quot;, &quot;region&quot;, &quot;state&quot;, &quot;cz&quot;, &quot;czname&quot;, &quot;cfips&quot;, &quot;county&quot;, &quot;multi&quot;, &quot;count&quot;, &quot;female&quot;, &quot;k_married&quot;, &quot;mr_kq5_pq1&quot;, &quot;mr_ktop1_pq1&quot;, &quot;par_mean&quot;, &quot;par_median&quot;, &quot;par_rank&quot;, &quot;par_top10pc&quot;, &quot;par_top5pc&quot;, &quot;par_top1pc&quot;, &quot;par_toppt1pc&quot;, &quot;k_rank&quot;, &quot;k_mean&quot;, &quot;k_median&quot;, &quot;k_median_nozero&quot;, &quot;k_0inc&quot;, &quot;k_top10pc&quot;, &quot;k_top5pc&quot;, &quot;k_top1pc&quot;, &quot;k_rank_cond_parq1&quot;, &quot;k_rank_cond_parq2&quot;, &quot;k_rank_cond_parq3&quot;, &quot;k_rank_cond_parq4&quot;, &quot;k_rank_cond_parq5&quot;, &quot;kq1_cond_parq1&quot;, &quot;kq2_cond_parq1&quot;, &quot;kq3_cond_parq1&quot;, &quot;kq4_cond_parq1&quot;, &quot;kq5_cond_parq1&quot;, &quot;kq1_cond_parq2&quot;, &quot;kq2_cond_parq2&quot;, &quot;kq3_cond_parq2&quot;, &quot;kq4_cond_parq2&quot;, &quot;kq5_cond_parq2&quot;, &quot;kq1_cond_parq3&quot;, &quot;kq2_cond_parq3&quot;, &quot;kq3_cond_parq3&quot;, &quot;kq4_cond_parq3&quot;, &quot;kq5_cond_parq3&quot;, &quot;kq1_cond_parq4&quot;, &quot;kq2_cond_parq4&quot;, &quot;kq3_cond_parq4&quot;, &quot;kq4_cond_parq4&quot;, &quot;kq5_cond_parq4&quot;, &quot;kq1_cond_parq5&quot;, &quot;kq2_cond_parq5&quot;, &quot;kq3_cond_parq5&quot;, &quot;kq4_cond_parq5&quot;, &quot;kq5_cond_parq5&quot;, &quot;ktop1pc_cond_parq1&quot;, &quot;ktop1pc_cond_parq2&quot;, &quot;ktop1pc_cond_parq3&quot;, &quot;ktop1pc_cond_parq4&quot;, &quot;ktop1pc_cond_parq5&quot;, &quot;k_married_cond_parq1&quot;, &quot;k_married_cond_parq2&quot;, &quot;k_married_cond_parq3&quot;, &quot;k_married_cond_parq4&quot;, &quot;k_married_cond_parq5&quot;)</code></pre>
+<pre class="r"><code>combined_data &lt;- inner_join(mobility_data, college_and_parent_quintile) </code></pre>
+<pre><code>## Joining, by = c(&quot;super_opeid&quot;, &quot;cohort&quot;, &quot;name&quot;, &quot;type&quot;, &quot;tier&quot;, &quot;tier_name&quot;, &quot;iclevel&quot;, &quot;region&quot;, &quot;state&quot;, &quot;cz&quot;, &quot;czname&quot;, &quot;cfips&quot;, &quot;county&quot;, &quot;multi&quot;, &quot;count&quot;, &quot;female&quot;, &quot;k_married&quot;, &quot;mr_kq5_pq1&quot;, &quot;mr_ktop1_pq1&quot;, &quot;par_mean&quot;, &quot;par_median&quot;, &quot;par_rank&quot;, &quot;par_q1&quot;, &quot;par_q2&quot;, &quot;par_q3&quot;, &quot;par_q4&quot;, &quot;par_q5&quot;, &quot;par_top10pc&quot;, &quot;par_top5pc&quot;, &quot;par_top1pc&quot;, &quot;par_toppt1pc&quot;, &quot;k_rank&quot;, &quot;k_mean&quot;, &quot;k_median&quot;, &quot;k_median_nozero&quot;, &quot;k_0inc&quot;, &quot;k_q1&quot;, &quot;k_q2&quot;, &quot;k_q3&quot;, &quot;k_q4&quot;, &quot;k_q5&quot;, &quot;k_top10pc&quot;, &quot;k_top5pc&quot;, &quot;k_top1pc&quot;, &quot;quintile&quot;)</code></pre>
+<pre class="r"><code>long_data &lt;- inner_join(combined_data, long_p_and_q_quints) %&gt;%
+  select(-c(kq1_cond_parq1:kq5_cond_parq5)) %&gt;%
+  select(-c(k_married_cond_parq1:k_married_cond_parq5)) %&gt;%
+  select(-c(k_rank_cond_parq1:k_rank_cond_parq5)) %&gt;%
+  select(-c(ktop1pc_cond_parq1:ktop1pc_cond_parq5)) %&gt;%
+  select(-parent_and_kid_quintile) %&gt;%
+  select(-c(par_q1:par_q5, k_q1:k_q5))</code></pre>
+<pre><code>## Joining, by = c(&quot;super_opeid&quot;, &quot;cohort&quot;, &quot;name&quot;, &quot;type&quot;, &quot;tier&quot;, &quot;tier_name&quot;, &quot;iclevel&quot;, &quot;region&quot;, &quot;state&quot;, &quot;cz&quot;, &quot;czname&quot;, &quot;cfips&quot;, &quot;county&quot;, &quot;multi&quot;, &quot;count&quot;, &quot;female&quot;, &quot;k_married&quot;, &quot;mr_kq5_pq1&quot;, &quot;mr_ktop1_pq1&quot;, &quot;par_mean&quot;, &quot;par_median&quot;, &quot;par_rank&quot;, &quot;par_q1&quot;, &quot;par_q2&quot;, &quot;par_q3&quot;, &quot;par_q4&quot;, &quot;par_q5&quot;, &quot;par_top10pc&quot;, &quot;par_top5pc&quot;, &quot;par_top1pc&quot;, &quot;par_toppt1pc&quot;, &quot;k_rank&quot;, &quot;k_mean&quot;, &quot;k_median&quot;, &quot;k_median_nozero&quot;, &quot;k_0inc&quot;, &quot;k_q1&quot;, &quot;k_q2&quot;, &quot;k_q3&quot;, &quot;k_q4&quot;, &quot;k_q5&quot;, &quot;k_top10pc&quot;, &quot;k_top5pc&quot;, &quot;k_top1pc&quot;, &quot;k_rank_cond_parq1&quot;, &quot;k_rank_cond_parq2&quot;, &quot;k_rank_cond_parq3&quot;, &quot;k_rank_cond_parq4&quot;, &quot;k_rank_cond_parq5&quot;, &quot;ktop1pc_cond_parq1&quot;, &quot;ktop1pc_cond_parq2&quot;, &quot;ktop1pc_cond_parq3&quot;, &quot;ktop1pc_cond_parq4&quot;, &quot;ktop1pc_cond_parq5&quot;, &quot;k_married_cond_parq1&quot;, &quot;k_married_cond_parq2&quot;, &quot;k_married_cond_parq3&quot;, &quot;k_married_cond_parq4&quot;, &quot;k_married_cond_parq5&quot;, &quot;kid_quintile&quot;, &quot;quintile&quot;, &quot;kq1_cond_parq1&quot;, &quot;kq2_cond_parq1&quot;, &quot;kq3_cond_parq1&quot;, &quot;kq4_cond_parq1&quot;, &quot;kq5_cond_parq1&quot;, &quot;kq1_cond_parq2&quot;, &quot;kq2_cond_parq2&quot;, &quot;kq3_cond_parq2&quot;, &quot;kq4_cond_parq2&quot;, &quot;kq5_cond_parq2&quot;, &quot;kq1_cond_parq3&quot;, &quot;kq2_cond_parq3&quot;, &quot;kq3_cond_parq3&quot;, &quot;kq4_cond_parq3&quot;, &quot;kq5_cond_parq3&quot;, &quot;kq1_cond_parq4&quot;, &quot;kq2_cond_parq4&quot;, &quot;kq3_cond_parq4&quot;, &quot;kq4_cond_parq4&quot;, &quot;kq5_cond_parq4&quot;, &quot;kq1_cond_parq5&quot;, &quot;kq2_cond_parq5&quot;, &quot;kq3_cond_parq5&quot;, &quot;kq4_cond_parq5&quot;, &quot;kq5_cond_parq5&quot;)</code></pre>
+<pre class="r"><code>clean_data &lt;- long_data %&gt;%
+  mutate(tier = as.factor(tier)) %&gt;%
+  mutate(quintile = as.factor(quintile)) %&gt;%
+  mutate(kid_quintile = as.factor(kid_quintile)) %&gt;%
+  mutate(type = as.factor(type)) %&gt;%
+  mutate(kid_quintile = as.factor(kid_quintile)) %&gt;%
+  mutate(iclevel = as.factor(iclevel)) %&gt;%
+  mutate(state = as.factor(state)) 
+
+
+
+exclude_geo &lt;- combined_data %&gt;%
+  select(-c(tier_name, region:multi))</code></pre>
+<pre class="r"><code>skim(clean_data)</code></pre>
+<table>
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">clean_data</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">645550</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">42</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">4</td>
+</tr>
+<tr class="odd">
+<td align="left">factor</td>
+<td align="left">6</td>
+</tr>
+<tr class="even">
+<td align="left">numeric</td>
+<td align="left">32</td>
+</tr>
+<tr class="odd">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">name</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">11</td>
+<td align="right">141</td>
+<td align="right">0</td>
+<td align="right">2447</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">tier_name</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">8</td>
+<td align="right">45</td>
+<td align="right">0</td>
+<td align="right">12</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">czname</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">22</td>
+<td align="right">0</td>
+<td align="right">488</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">county</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">829</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="left">ordered</th>
+<th align="right">n_unique</th>
+<th align="left">top_counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">type</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">FALSE</td>
+<td align="right">3</td>
+<td align="left">1: 348400, 2: 234900, 3: 62250</td>
+</tr>
+<tr class="even">
+<td align="left">tier</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">FALSE</td>
+<td align="right">12</td>
+<td align="left">9: 208300, 6: 165475, 5: 111500, 11: 25075</td>
+</tr>
+<tr class="odd">
+<td align="left">iclevel</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">FALSE</td>
+<td align="right">3</td>
+<td align="left">1: 397075, 2: 233375, 3: 15100</td>
+</tr>
+<tr class="even">
+<td align="left">state</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">FALSE</td>
+<td align="right">51</td>
+<td align="left">CA: 49575, NY: 48925, TX: 37800, PA: 37775</td>
+</tr>
+<tr class="odd">
+<td align="left">kid_quintile</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="left">1: 129110, 2: 129110, 3: 129110, 4: 129110</td>
+</tr>
+<tr class="even">
+<td align="left">quintile</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="left">1: 129110, 2: 129110, 3: 129110, 4: 129110</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col width="23%" />
+<col width="7%" />
+<col width="11%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="8%" />
+<col width="4%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">super_opeid</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5663.28</td>
+<td align="right">7230.98</td>
+<td align="right">1.00</td>
+<td align="right">1965.00</td>
+<td align="right">3087.50</td>
+<td align="right">5387.00</td>
+<td align="right">41893.00</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">cohort</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1985.90</td>
+<td align="right">3.34</td>
+<td align="right">1980.00</td>
+<td align="right">1983.00</td>
+<td align="right">1986.00</td>
+<td align="right">1989.00</td>
+<td align="right">1991.00</td>
+<td align="left">▆▅▅▅▇</td>
+</tr>
+<tr class="odd">
+<td align="left">region</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.47</td>
+<td align="right">1.03</td>
+<td align="right">1.00</td>
+<td align="right">2.00</td>
+<td align="right">3.00</td>
+<td align="right">3.00</td>
+<td align="right">4.00</td>
+<td align="left">▅▅▁▇▃</td>
+</tr>
+<tr class="even">
+<td align="left">cz</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">20450.62</td>
+<td align="right">11188.37</td>
+<td align="right">100.00</td>
+<td align="right">11600.00</td>
+<td align="right">19700.00</td>
+<td align="right">29601.00</td>
+<td align="right">39400.00</td>
+<td align="left">▅▅▇▅▆</td>
+</tr>
+<tr class="odd">
+<td align="left">cfips</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">29458.17</td>
+<td align="right">15326.09</td>
+<td align="right">1003.00</td>
+<td align="right">17031.00</td>
+<td align="right">31157.00</td>
+<td align="right">42019.00</td>
+<td align="right">56037.00</td>
+<td align="left">▅▆▅▇▆</td>
+</tr>
+<tr class="even">
+<td align="left">multi</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.04</td>
+<td align="right">0.19</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">count</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1080.08</td>
+<td align="right">1702.33</td>
+<td align="right">53.00</td>
+<td align="right">263.00</td>
+<td align="right">524.00</td>
+<td align="right">1201.00</td>
+<td align="right">30940.00</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">female</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.55</td>
+<td align="right">0.14</td>
+<td align="right">0.00</td>
+<td align="right">0.50</td>
+<td align="right">0.55</td>
+<td align="right">0.60</td>
+<td align="right">1.00</td>
+<td align="left">▁▁▇▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">k_married</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.34</td>
+<td align="right">0.19</td>
+<td align="right">0.00</td>
+<td align="right">0.19</td>
+<td align="right">0.34</td>
+<td align="right">0.49</td>
+<td align="right">0.90</td>
+<td align="left">▆▇▇▅▁</td>
+</tr>
+<tr class="even">
+<td align="left">mr_kq5_pq1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.02</td>
+<td align="right">0.01</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+<td align="right">0.02</td>
+<td align="right">0.02</td>
+<td align="right">0.19</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">mr_ktop1_pq1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.03</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">par_mean</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">111891.14</td>
+<td align="right">87743.65</td>
+<td align="right">10282.95</td>
+<td align="right">66369.94</td>
+<td align="right">87557.40</td>
+<td align="right">121450.11</td>
+<td align="right">1316239.62</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">par_median</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">76730.08</td>
+<td align="right">32961.20</td>
+<td align="right">10900.00</td>
+<td align="right">54600.00</td>
+<td align="right">72100.00</td>
+<td align="right">92600.00</td>
+<td align="right">301100.00</td>
+<td align="left">▇▇▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">par_rank</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.57</td>
+<td align="right">0.12</td>
+<td align="right">0.15</td>
+<td align="right">0.48</td>
+<td align="right">0.57</td>
+<td align="right">0.66</td>
+<td align="right">0.89</td>
+<td align="left">▁▃▇▇▂</td>
+</tr>
+<tr class="odd">
+<td align="left">par_top10pc</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.13</td>
+<td align="right">0.13</td>
+<td align="right">0.00</td>
+<td align="right">0.04</td>
+<td align="right">0.09</td>
+<td align="right">0.18</td>
+<td align="right">0.73</td>
+<td align="left">▇▂▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">par_top5pc</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.07</td>
+<td align="right">0.09</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+<td align="right">0.03</td>
+<td align="right">0.08</td>
+<td align="right">0.58</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">par_top1pc</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.02</td>
+<td align="right">0.03</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+<td align="right">0.26</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">par_toppt1pc</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.06</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">k_rank</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.57</td>
+<td align="right">0.08</td>
+<td align="right">0.16</td>
+<td align="right">0.51</td>
+<td align="right">0.56</td>
+<td align="right">0.63</td>
+<td align="right">0.96</td>
+<td align="left">▁▂▇▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">k_mean</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">31856.37</td>
+<td align="right">15607.13</td>
+<td align="right">1626.74</td>
+<td align="right">21750.55</td>
+<td align="right">29034.90</td>
+<td align="right">37967.91</td>
+<td align="right">729047.31</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">k_median</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">28276.95</td>
+<td align="right">12281.54</td>
+<td align="right">0.00</td>
+<td align="right">19300.00</td>
+<td align="right">26400.00</td>
+<td align="right">34800.00</td>
+<td align="right">121300.00</td>
+<td align="left">▆▇▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">k_median_nozero</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">31067.85</td>
+<td align="right">12590.52</td>
+<td align="right">4700.00</td>
+<td align="right">21800.00</td>
+<td align="right">29400.00</td>
+<td align="right">37700.00</td>
+<td align="right">121300.00</td>
+<td align="left">▇▇▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">k_0inc</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.10</td>
+<td align="right">0.04</td>
+<td align="right">0.00</td>
+<td align="right">0.07</td>
+<td align="right">0.10</td>
+<td align="right">0.13</td>
+<td align="right">0.86</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">k_top10pc</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.13</td>
+<td align="right">0.10</td>
+<td align="right">0.00</td>
+<td align="right">0.06</td>
+<td align="right">0.10</td>
+<td align="right">0.16</td>
+<td align="right">0.85</td>
+<td align="left">▇▂▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">k_top5pc</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.06</td>
+<td align="right">0.07</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+<td align="right">0.04</td>
+<td align="right">0.08</td>
+<td align="right">0.85</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">k_top1pc</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+<td align="right">0.03</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+<td align="right">0.01</td>
+<td align="right">0.67</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">prob_based_on_k_par_quintile</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.20</td>
+<td align="right">0.10</td>
+<td align="right">0.00</td>
+<td align="right">0.13</td>
+<td align="right">0.19</td>
+<td align="right">0.26</td>
+<td align="right">1.00</td>
+<td align="left">▇▆▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">k_married_2014</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.34</td>
+<td align="right">0.19</td>
+<td align="right">0.00</td>
+<td align="right">0.18</td>
+<td align="right">0.33</td>
+<td align="right">0.48</td>
+<td align="right">1.00</td>
+<td align="left">▇▇▇▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">mean_kid_income_ranking</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.56</td>
+<td align="right">0.09</td>
+<td align="right">0.00</td>
+<td align="right">0.50</td>
+<td align="right">0.56</td>
+<td align="right">0.62</td>
+<td align="right">1.00</td>
+<td align="left">▁▁▇▃▁</td>
+</tr>
+<tr class="even">
+<td align="left">prob_kid_top_one_pct</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+<td align="right">0.03</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+<td align="right">1.00</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">par_quint_distribution</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.20</td>
+<td align="right">0.11</td>
+<td align="right">0.00</td>
+<td align="right">0.12</td>
+<td align="right">0.19</td>
+<td align="right">0.26</td>
+<td align="right">0.84</td>
+<td align="left">▆▇▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">kid_quint_distribution</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.20</td>
+<td align="right">0.09</td>
+<td align="right">0.00</td>
+<td align="right">0.13</td>
+<td align="right">0.20</td>
+<td align="right">0.25</td>
+<td align="right">0.90</td>
+<td align="left">▆▇▁▁▁</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>married_graph_tier &lt;- clean_data %&gt;%
+  select(name, tier, k_married, tier_name) %&gt;%
+  mutate(tier_name = as.factor(tier_name)) %&gt;%
+  drop_na() %&gt;%
+  group_by(tier_name) %&gt;%
+  summarise(avg_married = mean(k_married)) %&gt;%
+  ggplot(aes(x = tier_name, y = avg_married)) +
+  geom_col() + 
+  labs(title = &quot;Avg. Fraction of Kids Married \nbased on the Tier of their College.&quot;,
+       subtitle = &quot;Kids from lower-income parents are married \nless frequently.
+      Marriges of kids with wealthier parents \nare distributed more evenly.&quot;, 
+      x = &quot;Tier of Institution&quot;,
+      y = &quot;Average Fraction Married of a College Tier&quot;, 
+      caption = &quot;Source: Opportunity Insight.&quot;) + 
+  coord_flip() + 
+  scale_fill_canva() + 
+  theme_economist_white()</code></pre>
+<pre class="r"><code>married_graph_tier</code></pre>
+<p><img src="college-outcomes_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>married_data_parents &lt;- clean_data %&gt;%
+  select(name, tier, quintile, k_married_2014, par_toppt1pc) %&gt;%
+  drop_na() %&gt;%
+  ggplot(aes(x = k_married_2014)) +
+  geom_freqpoly() +
+  facet_wrap(~quintile) + 
+  labs(title = &quot;Distribution of Marrige Rates at a College by Parental Income Quintile.&quot;,
+       subtitle = &quot;Kids from lower-income parents are married less frequently. \nMarriges of kids with wealthier parents are distributed more evenly.&quot;, 
+      x = &quot;Percent of kids married.&quot;,
+      y = &quot;Count&quot;, 
+      caption = &quot;Source: Opportunity Insight.&quot;) +
+  theme_tufte()</code></pre>
+<pre class="r"><code>married_data_parents</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="college-outcomes_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>mobility_plot_1 &lt;- clean_data %&gt;%
+  group_by(name) %&gt;%
+  group_by(cohort, .add = TRUE) 
+
+stanford_plot &lt;- clean_data %&gt;%
+  filter(name == &quot;Stanford University&quot;) %&gt;%
+  mutate(kid_quintile = as.integer(kid_quintile))  %&gt;%
+  ggplot(aes(x = kid_quintile, y = prob_based_on_k_par_quintile, color = quintile)) +
+  geom_jitter() +
+  geom_smooth(se = FALSE, method = &quot;loess&quot;, formula = y ~ x, span = 1) +
+  labs(title = &quot;Likelyhood of a Stanford Student being in a specific Income Quintile based on the Income Quintile of their Parent&quot;, 
+       subtitle = &quot;No matter the Parent Quintile, Stanford students have a high probability of being in the highest \nincome quintile.&quot;,
+       x = &quot;Kid Income Quintile&quot;,
+       y = &quot;Probability&quot;, 
+       caption = &quot;Source: Opportunity Insight, Graph by Ryan Southward&quot;, 
+       color = &quot;Parent Income Quintile&quot;) +
+  transition_time(cohort)+
+  labs(title = &quot;Year: {frame_time}&quot;) 
+
+animate(stanford_plot, fps=8)</code></pre>
+<p><img src="college-outcomes_files/figure-html/stanford_plot-1.gif" /><!-- --></p>
+<pre class="r"><code>college_plot &lt;- clean_data %&gt;%
+  filter(name == &quot;Stanford University&quot; | name==&quot;Harvard University&quot; | name == &quot;University Of Alabama&quot;) %&gt;%
+  mutate(kid_quintile = as.integer(kid_quintile))  %&gt;%
+  ggplot(aes(x = kid_quintile, y = prob_based_on_k_par_quintile, color = name)) +
+  geom_jitter(alpha = .5) +
+  geom_smooth(se = FALSE, method = &quot;loess&quot;, formula = y ~ x)+
+  labs(title = &quot;Probability of Kid Outcome based on Parent Outcome for Different Colleges&quot;, 
+       subtitle = &quot;Stanford and Harvard are very similar.&quot;,
+       y = &quot;Probability&quot;,
+       x = &quot;Kid&#39;s Income Quintile Outcome&quot;,
+       caption = &quot;Source: Opportunity Insight, Graph by Ryan Southward&quot;) + 
+  transition_time(quintile)+
+   transition_states(
+    quintile,
+    transition_length = 5,
+    state_length = 3
+  ) + 
+  labs(title = &quot;Parent Quintile: {closest_state}. 1 is the lowest, 5 is the highest.&quot;) 
+
+# geom_ribbon(aes(ymin = 0,ymax = predict(loess(prob_based_on_k_par_quintile ~ kid_quintile))),
+               # alpha = 0.3,fill = &quot;red&quot;) 
+  
+animate(college_plot)</code></pre>
+<p><img src="college-outcomes_files/figure-html/multi_college_plot-1.gif" /><!-- --></p>
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
